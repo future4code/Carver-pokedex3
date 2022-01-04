@@ -1,12 +1,18 @@
 import PokeCard from "../../components/PokeCard/PokeCard"
 import { MainContainer } from "./styled"
+import useRequestData from "../../components/useRequestData/useRequestData";
 
 
 const Main = () => {
+
+   
+
     return (
-        <MainContainer>
-            <PokeCard/>
-        </MainContainer>
+       <div>
+            <MainContainer>
+        <PokeCard/>
+            </MainContainer>
+       </div>
     )
 }
 
