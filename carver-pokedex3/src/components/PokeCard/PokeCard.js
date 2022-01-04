@@ -1,11 +1,26 @@
 import { ButtonsCard, ButtonsCardContainer, CardContainer, Photo, PhotoCard } from "./styled"
-
+import useRequestData from "../useRequestData/useRequestData"
+import { useEffect } from "react/cjs/react.development"
 const PokeCard = () => {
+
+    const pokemon = useRequestData([], "https://pokeapi.co/api/v2/pokemon/25")
+    
+    console.log("aqui",pokemon)
+    
+
+    
+    
+    useEffect (()=>{
+        
+    },{})
+
+ 
     return (
         <CardContainer>
-
+          
             <PhotoCard>
-               <Photo src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"/>
+            <Photo src = {pokemon && pokemon.sprites.front_default}/>
+            
             </PhotoCard>
 
             <ButtonsCardContainer>
