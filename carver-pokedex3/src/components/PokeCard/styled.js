@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 
 export const CardContainer = styled.div`
-    display:flex;
-    flex-direction: column;
+    display:grid
+    grid-template-rows: ;
     background-color: gray;
     height: 30vh;
     width: 250px;
+    margin: 10px;
     justify-content: space-between;
 
 `
@@ -14,12 +15,13 @@ export const PhotoCard = styled.div`
     justify-content: center;
 `
 export const Photo = styled.img`
-    height: 200px;
+    height: 20vh;
 `
 export const ButtonsCardContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     margin: 2px;
+    margin-top: 60px;
 `
 
 export const ButtonsCard = styled.button`
