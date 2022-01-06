@@ -1,28 +1,48 @@
 import { ButtonsCard, ButtonsCardContainer, CardContainer, Photo, PhotoCard } from "./styled"
 import useRequestData from "../useRequestData/useRequestData"
-import { useEffect } from "react/cjs/react.development"
+
+
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 const PokeCard = () => {
+    const [mostrarPokemon, setMostrarPokemon] = useState([])
+    // const pokemonNome = useRequestData([], "https://pokeapi.co/api/v2/pokemon/bulbasaur")
+    
+    // console.log("aqui",pokemonNome)
+    
 
-    const pokemon = useRequestData([], "https://pokeapi.co/api/v2/pokemon/25")
-    
-    console.log("aqui",pokemon)
-    
+    const detalhesPokemon = () => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/bulbasaur`, {})
+        .then((res) => {
+            setMostrarPokemon(res.data)
+            console.log(res.data)
+        })
+        .catch((err) => {
+            console.log(err.response)
+        })
+    }
+    useEffect(() => {
+        detalhesPokemon()
+    }, [])
+
 
     
     
-    useEffect (()=>{
-        
-    },{})
 
  
     return (
         <CardContainer>
           
             <PhotoCard>
-            <Photo src = {pokemon && pokemon.sprites.front_default}/>
+            {/* <Photo src = {mostrarPoke.sprites.front_default}/> */}
             
             </PhotoCard>
 
+            {/* {mostrarPokemon && mostrarPokemon.type.map(tipo => {
+                return <div>{ tidivo.type.name}</div>
+            })} */}
+            {mostrarPokemon.types[0].type.name}
+            
             <ButtonsCardContainer>
 
                 <ButtonsCard>

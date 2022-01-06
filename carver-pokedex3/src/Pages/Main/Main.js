@@ -5,14 +5,14 @@ import useRequestData from "../../components/useRequestData/useRequestData";
 
 const Main = () => {
 
-   
+
 
     return (
-       <div>
+        <div>
             <MainContainer>
-        <PokeCard/>
+                <PokeCard />
             </MainContainer>
-       </div>
+        </div>
     )
 }
 
