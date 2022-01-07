@@ -1,16 +1,13 @@
-# POKEDEX
+# Projeto Pokedex
+# Projeto realizado pelos alunos Edson Batista Magnini Junior, Alisson Abílio e Renan Moreira Rodrigues
+# Projeto contempla menu contendo 20 pokemons, adicionar pokemon a pokedex e remover pokemon da pokedex 
 
-Nome dos integrantes: 
-- Pessoa 1
-- Pessoa 2
-- Pessoa 3
-
-Link do Surge: www.link.com.br
-
-O que funciona:
-- Item 1
-- Item 2
-
-O que não funciona: 
-- Item 3
-- Item 4
+# Main
+![image](./img/main.png)
+# Adicionar pokemon a pokedex
+![image](./img/add_pokemon.png)
+# Pokedex
+![image](./img/pokedex.png)
+# Remover pokemon da pokedex
+![image](./img/remove_pokemon.png)
+# Link do surge: carver-pokedex3.surge.sh
