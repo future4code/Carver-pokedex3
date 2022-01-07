@@ -1,6 +1,6 @@
 import { ButtonsCard, ButtonsCardContainer, CardContainer, Photo, PhotoCard } from "./styled"
 import { useHistory } from "react-router-dom";
-import React, {  useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import PokeDetails from "../../Pages/PokeDetails/PokeDetails";
 
@@ -9,46 +9,48 @@ import GlobalStateContext from "../../contexts/GlobalStateContext";
 
 const PokeCard = () => {
     const history = useHistory();
-    // const [mostrarPokemon, setMostrarPokemon] = useState([])
-
-    const {mostrarPokemon, setMostrarPokemon} = useContext(GlobalStateContext)
-
-    // useEffect(() => {
-    //     detalhesPokemon()
-    // }, [])
 
 
+    const { mostrarPokemon, setMostrarPokemon } = useContext(GlobalStateContext)
+    const { pokedex, setPokedex } = useContext(GlobalStateContext)
 
-    // const detalhesPokemon = () => {
-    //     const list = []
-    //     for (let i = 1; i <= 20; i++) {
-    //         axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-    //             .then((res) => {
-    //                 list.push(res.data)
-    //                 if (list.length === 20) {
-    //                     setMostrarPokemon(list)
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err.response)
-    //             })
-    //     }
-    // }
+
+    const addToPokedex = (poke) => {
+        const pokeIndex = mostrarPokemon.findIndex((newPokemon) => newPokemon.id === poke.id);
+
+        const newPokemons = [...mostrarPokemon]
+        newPokemons.splice(pokeIndex, 1)
+
+        const listaOrdenadaPokemons = newPokemons.sort((a, b) => {
+            return a.id - b.id
+        })
+        
+        const newPokedex = [...pokedex, poke];
+
+        const listaOrdenadaPokedex = newPokedex.sort((a, b) => {
+            return a.id - b.id
+          })
+
+
+        setPokedex(listaOrdenadaPokedex);
+        setMostrarPokemon(listaOrdenadaPokemons)
+        console.log("pokemon adicionado", pokedex)
+    };
 
     const goToPokeDetails = (history) => {
         history.push('/pokedex')
     }
-    
+    console.log("pokedex", pokedex)
     const details = mostrarPokemon.length && mostrarPokemon.map((poke) => {
         return (
             <CardContainer>
                 <PhotoCard>
-                    <Photo src={poke.sprites.front_default} />
-                    
+                    <Photo src={poke.sprites.front_default} alt={poke.name} />
+
                 </PhotoCard>
                 <ButtonsCardContainer>
 
-                    <ButtonsCard>
+                    <ButtonsCard onClick={() => addToPokedex(poke)}>
                         Adicionar a Pokédex
                     </ButtonsCard>
 
@@ -61,18 +63,16 @@ const PokeCard = () => {
         )
     })
 
-    console.log("detalhe", mostrarPokemon)
+    
+
+
 
     return (
         <>
 
 
             {details}
-
-
-
             
-
 
         </>
 

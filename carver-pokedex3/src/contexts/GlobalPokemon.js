@@ -6,6 +6,7 @@ import GlobalStateContext from './GlobalStateContext'
 
 const GlobalPokemon = (props) => {
   const [mostrarPokemon, setMostrarPokemon] = useState([])
+  const [pokedex, setPokedex] = useState([])
 
   useEffect(() => {
     detalhesPokemon()
@@ -14,14 +15,19 @@ const GlobalPokemon = (props) => {
 
 
   const detalhesPokemon = () => {
-    const list = []
+    
+    const list = [] 
     for (let i = 1; i <= 20; i++) {
       axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
         .then((res) => {
           list.push(res.data)
           if (list.length === 20) {
-            setMostrarPokemon(list)
+            const listaOrdenada = list.sort((a, b) => {
+              return a.id - b.id
+            })
+            setMostrarPokemon(listaOrdenada)
           }
+          
         })
         .catch((err) => {
           console.log(err.response)
@@ -31,7 +37,9 @@ const GlobalPokemon = (props) => {
  
   const data = {
     mostrarPokemon,
-    setMostrarPokemon
+    setMostrarPokemon,
+    pokedex,
+    setPokedex
   }
 
   return (
