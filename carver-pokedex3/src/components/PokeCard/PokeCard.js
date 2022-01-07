@@ -7,7 +7,7 @@ import PokeDetails from "../../Pages/PokeDetails/PokeDetails";
 
 import GlobalStateContext from "../../contexts/GlobalStateContext";
 
-const PokeCard = () => {
+const PokeCard = (props) => {
     const history = useHistory();
 
 
@@ -15,55 +15,53 @@ const PokeCard = () => {
     const { pokedex, setPokedex } = useContext(GlobalStateContext)
 
 
-    const addToPokedex = (poke) => {
-        const pokeIndex = mostrarPokemon.findIndex((newPokemon) => newPokemon.id === poke.id);
+    const addPokedex = () => {
+        const index = mostrarPokemon.findIndex((newPokemon) => newPokemon.id === props.poke.id);
 
         const newPokemons = [...mostrarPokemon]
-        newPokemons.splice(pokeIndex, 1)
+        newPokemons.splice(index, 1)
 
         const listaOrdenadaPokemons = newPokemons.sort((a, b) => {
             return a.id - b.id
         })
-        
-        const newPokedex = [...pokedex, poke];
+
+        const newPokedex = [...pokedex, props.poke];
 
         const listaOrdenadaPokedex = newPokedex.sort((a, b) => {
             return a.id - b.id
-          })
+        })
 
 
         setPokedex(listaOrdenadaPokedex);
         setMostrarPokemon(listaOrdenadaPokemons)
-        console.log("pokemon adicionado", pokedex)
+        alert(`${props.poke.name} adicionado a pokedex`)
     };
+    const removePokedex = () => {
+        const index = pokedex.findIndex((newPokemon) => newPokemon.id === props.poke.id);
+
+        const newPokedex = [...pokedex]
+        newPokedex.splice(index, 1)
+
+        const listaOrdenadaPokedex = newPokedex.sort((a, b) => {
+            return a.id - b.id
+        })
+
+        const newPokemon = [...mostrarPokemon, props.poke];
+
+        const listaOrdenadaPokemons = newPokemon.sort((a, b) => {
+            return a.id - b.id
+        })
+
+
+        setPokedex(listaOrdenadaPokedex);
+        setMostrarPokemon(listaOrdenadaPokemons)
+        alert(`${props.poke.name} removido da pokedex`)
+    
+    }
 
     const goToPokeDetails = (history) => {
         history.push('/pokedex')
     }
-    console.log("pokedex", pokedex)
-    const details = mostrarPokemon.length && mostrarPokemon.map((poke) => {
-        return (
-            <CardContainer>
-                <PhotoCard>
-                    <Photo src={poke.sprites.front_default} alt={poke.name} />
-
-                </PhotoCard>
-                <ButtonsCardContainer>
-
-                    <ButtonsCard onClick={() => addToPokedex(poke)}>
-                        Adicionar a Pokédex
-                    </ButtonsCard>
-
-                    <ButtonsCard onClick={() => goToPokeDetails(history, poke.id)}>
-                        Ver detalhes
-                    </ButtonsCard>
-
-                </ButtonsCardContainer>
-            </CardContainer>
-        )
-    })
-
-    
 
 
 
@@ -71,8 +69,24 @@ const PokeCard = () => {
         <>
 
 
-            {details}
-            
+            <CardContainer>
+                <PhotoCard>
+                    <Photo src={props.poke.sprites.front_default} alt={props.poke.name} />
+
+                </PhotoCard>
+                <ButtonsCardContainer>
+
+                    <ButtonsCard onClick={() => props.isPokedex ? removePokedex() : addPokedex()}>
+                        {props.isPokedex ? "Remover da pokedex" : "Adicionar a pokedex"}
+                    </ButtonsCard>
+
+                    <ButtonsCard onClick={() => goToPokeDetails(history)}>
+                        Ver detalhes
+                    </ButtonsCard>
+
+                </ButtonsCardContainer>
+            </CardContainer>
+
 
         </>
 

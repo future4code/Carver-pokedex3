@@ -7,18 +7,19 @@ import GlobalStateContext from './GlobalStateContext'
 const GlobalPokemon = (props) => {
   const [mostrarPokemon, setMostrarPokemon] = useState([])
   const [pokedex, setPokedex] = useState([])
+  const [pokemonNames, setPokemonNames] = useState([]);
 
   useEffect(() => {
-    detalhesPokemon()
+    getPokemonNames()
   }, [])
 
 
 
-  const detalhesPokemon = () => {
-    
-    const list = [] 
-    for (let i = 1; i <= 20; i++) {
-      axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+  useEffect(() => {
+      
+    const list = []
+    pokemonNames.forEach((pokemon) => {
+      axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
         .then((res) => {
           list.push(res.data)
           if (list.length === 20) {
@@ -32,8 +33,18 @@ const GlobalPokemon = (props) => {
         .catch((err) => {
           console.log(err.response)
         })
-    }
-  }
+    })
+  },[pokemonNames])
+
+
+  const getPokemonNames = () => {
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon?limit=20`)
+      .then((res) => {
+        setPokemonNames(res.data.results);
+      })
+      .catch((err) => console.log(err.message));
+  };
  
   const data = {
     mostrarPokemon,
